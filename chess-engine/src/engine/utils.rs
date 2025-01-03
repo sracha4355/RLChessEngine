@@ -1,17 +1,58 @@
-pub fn visualize_bitboard(board: &u64) -> () {
-    print!(" ");
+pub fn print_bitboard(board: &u64) -> () {
+    print!("   ");
     for file in 1..9 as u8 {
         print!(" {} ", ((file - 1 + 97) as char).to_ascii_lowercase());
-    }
+    } 
     println!("");
-    
-    let ranks: [u64; 8] = [1,2,3,4,5,6,7,8];
-    let mut mask: u64 = 0xFF00000000000000;
-    for rank in ranks.iter().rev() {
-        print!("{} ", rank);
-        let bits = board | mask;
-        
-        println!("");
-        mask = mask >> 8;
+    let mut rank = 8;
+    for i in (0..64).rev() {
+        if i % 8 == 7 {
+            print!(" {} ", rank);
+            rank -= 1;
+        }
+        let mask: u64 = 1 << i;
+        if board & mask != 0 {
+            print!(" 1 ");
+        } else {
+            print!(" 0 ");
+        }
+        if i % 8 == 0 {
+            println!("");
+        }
     }
 }
+
+pub fn get_bit(bit: u64, bitboard: u64) -> Result<u64, String> {
+    if bit > 63 {
+        return Err(format!("Invalid bit of {bit} requested"));
+    }
+    Ok(bitboard & (1 << bit))
+}
+
+pub fn get_bit_from_position(rank: u64, file: char) -> Result<u64, String> {
+    let file = file as u64 + 1 - 97;
+    // println!("file {}", file);
+    let bit = (rank - 1) * 8  + (file - 1);
+    if bit > 63 {
+        return Err(format!("Invalid bit requested based on provided rank: {rank} and file: {file}"));
+    }
+    Ok(bit)
+}
+
+pub fn get_position() {
+    
+}
+
+
+/*
+    a  b  c  d  e  f  g  h 
+ 8  0  0  0  0  0  0  0  0 -> index 64
+ 7  0  0  0  0  0  0  0  0 
+ 6  0  0  0  0  0  0  0  0 
+ 5  0  0  0  0  0  0  0  0 
+ 4  0  0  0  0  0  0  0  0 
+ 3  0  0  0  0  0  0  0  0 -> index 23
+ 2  1  1  1  1  1  1  1  1 -> index 15
+ 1  0  0  0  0  0  0  0  0 -> index 7 
+ *bits' index increase from left to right from the bottom
+*/
