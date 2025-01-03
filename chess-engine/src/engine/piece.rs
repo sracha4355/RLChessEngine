@@ -90,11 +90,13 @@ pub fn bishop(color: &Color) -> Piece {
     
     let mask = utils::get_bit_from_position(rank, file_for_bishop1)
         .and_then(|bit1| utils::get_bit_from_position(rank, file_for_bishop2)
-        .map(|bit2| 1 << bit1 | 1 << bit2));
+        .map(|bit2| 1u64 << bit1 | 1u64 << bit2));
+
     match mask {
         Ok(bitmask) => bitboard |= bitmask as u64,
         Err(_) => panic!("Incorrect bit position for bishop creation")
-    } 
+    }
+
     Piece {
         piece_type: PieceType::BISHOP,
         color: *color,       
@@ -114,7 +116,7 @@ pub fn rook(color: &Color) -> Piece {
 
     let mask = utils::get_bit_from_position(rank, file_for_rook1)
         .and_then(|bit1| utils::get_bit_from_position(rank, file_for_rook2)
-        .map(|bit2| 1 << bit1 | 1 << bit2));
+        .map(|bit2| 1u64 << bit1 | 1u64 << bit2));
     match mask {
         Ok(bitmask) => bitboard |= bitmask as u64,
         Err(_) => panic!("Incorrect bit position for rook creation")
@@ -138,10 +140,10 @@ pub fn knight(color: &Color) -> Piece {
 
     let mask = utils::get_bit_from_position(rank, file_for_knight1)
         .and_then(|bit1| utils::get_bit_from_position(rank, file_for_knight2)
-        .map(|bit2| 1 << bit1 | 1 << bit2));
+        .map(|bit2| 1u64 << bit1 | 1u64 << bit2));
     match mask {
         Ok(bitmask) => bitboard |= bitmask as u64,
-        Err(_) => panic!("Incorrect bit position for rook creation")
+        Err(_) => panic!("Incorrect bit position for knight creation")
     } 
 
     Piece {

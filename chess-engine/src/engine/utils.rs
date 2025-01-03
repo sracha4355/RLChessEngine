@@ -26,7 +26,7 @@ pub fn get_bit(bit: u64, bitboard: u64) -> Result<u64, String> {
     if bit > 63 {
         return Err(format!("Invalid bit of {bit} requested"));
     }
-    Ok(bitboard & (1 << bit))
+    Ok((bitboard & (1 << bit)) >> bit)
 }
 
 pub fn get_bit_from_position(rank: u64, file: char) -> Result<u64, String> {
@@ -46,11 +46,11 @@ pub fn get_position() {
 
 /*
     a  b  c  d  e  f  g  h 
- 8  0  0  0  0  0  0  0  0 -> index 64
- 7  0  0  0  0  0  0  0  0 
- 6  0  0  0  0  0  0  0  0 
- 5  0  0  0  0  0  0  0  0 
- 4  0  0  0  0  0  0  0  0 
+ 8  0  0  0  0  0  0  0  0 -> index 63
+ 7  0  0  0  0  0  0  0  0 -> index 55
+ 6  0  0  0  0  0  0  0  0 -> index 47
+ 5  0  0  0  0  0  0  0  0 -> index 39
+ 4  0  0  0  0  0  0  0  0 -> index 31
  3  0  0  0  0  0  0  0  0 -> index 23
  2  1  1  1  1  1  1  1  1 -> index 15
  1  0  0  0  0  0  0  0  0 -> index 7 
