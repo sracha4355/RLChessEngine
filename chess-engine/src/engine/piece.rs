@@ -82,20 +82,17 @@ pub fn pawns(color: &Color) -> Piece {
 
 pub fn bishop(color: &Color) -> Piece { 
     let mut bitboard = 0u64;
-    let mut rank = 0;
+    let mut rank = 0u64;
     let file_for_bishop1 = 'c';
     let file_for_bishop2 = 'f';
     if matches!(color , Color::WHITE) { rank = 1; } 
     else { rank = 8; }
     
-    let mask = utils::get_bit_from_position(rank, file_for_bishop1)
-        .and_then(|bit1| utils::get_bit_from_position(rank, file_for_bishop2)
-        .map(|bit2| 1u64 << bit1 | 1u64 << bit2));
-
-    match mask {
-        Ok(bitmask) => bitboard |= bitmask as u64,
-        Err(_) => panic!("Incorrect bit position for bishop creation")
-    }
+    let mask = utils::bitmask_from_board_positions(
+        &vec![(rank, file_for_bishop1), (rank, file_for_bishop2)]
+    );
+    if let Ok(bitmask) = mask { bitboard |= bitmask; } 
+    else { panic!("Something went wrong during bishop bitboard creation!");}
 
     Piece {
         piece_type: PieceType::BISHOP,
@@ -114,13 +111,12 @@ pub fn rook(color: &Color) -> Piece {
     if matches!(color , Color::WHITE) { rank = 1; } 
     else { rank = 8; }
 
-    let mask = utils::get_bit_from_position(rank, file_for_rook1)
-        .and_then(|bit1| utils::get_bit_from_position(rank, file_for_rook2)
-        .map(|bit2| 1u64 << bit1 | 1u64 << bit2));
-    match mask {
-        Ok(bitmask) => bitboard |= bitmask as u64,
-        Err(_) => panic!("Incorrect bit position for rook creation")
-    } 
+    let mask = utils::bitmask_from_board_positions(
+        &vec![(rank, file_for_rook1), (rank, file_for_rook2)]
+    );
+    if let Ok(bitmask) = mask { bitboard |= bitmask; } 
+    else { panic!("Something went wrong during rook bitboard creation!"); }
+
     Piece {
         piece_type: PieceType::ROOK,
         color: *color,
@@ -138,13 +134,11 @@ pub fn knight(color: &Color) -> Piece {
     if matches!(color , Color::WHITE) { rank = 1; } 
     else { rank = 8; }
 
-    let mask = utils::get_bit_from_position(rank, file_for_knight1)
-        .and_then(|bit1| utils::get_bit_from_position(rank, file_for_knight2)
-        .map(|bit2| 1u64 << bit1 | 1u64 << bit2));
-    match mask {
-        Ok(bitmask) => bitboard |= bitmask as u64,
-        Err(_) => panic!("Incorrect bit position for knight creation")
-    } 
+    let mask = utils::bitmask_from_board_positions(
+        &vec![(rank, file_for_knight1), (rank, file_for_knight2)]
+    );
+    if let Ok(bitmask) = mask { bitboard |= bitmask; } 
+    else { panic!("Something went wrong during knight bitboard creation!"); }
 
     Piece {
         piece_type: PieceType::KNIGHT,

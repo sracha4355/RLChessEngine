@@ -39,7 +39,20 @@ pub fn get_bit_from_position(rank: u64, file: char) -> Result<u64, String> {
     Ok(bit)
 }
 
-pub fn get_position() {
+pub fn bitmask_from_board_positions(positions: &Vec<(u64, char)>) -> Result<u64, String> {
+    let mut mask = 0u64;
+    for (rank, file) in positions {
+        let bit_number = get_bit_from_position(
+            *rank,
+            *file
+        )?;
+        mask |= 1 << bit_number;
+    }
+    return Ok(mask);
+}
+
+
+pub fn get_position(bit_index: u64) {
     
 }
 
