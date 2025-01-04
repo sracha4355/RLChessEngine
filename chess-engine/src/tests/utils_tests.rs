@@ -1,8 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::engine::utils::*;
-    use crate::engine::piece::*;
-
+    
     #[test]
     fn test_get_bit_from_position() {
         let rank = 1u64;

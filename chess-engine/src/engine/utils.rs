@@ -52,8 +52,9 @@ pub fn bitmask_from_board_positions(positions: &Vec<(u64, char)>) -> Result<u64,
 }
 
 
-pub fn get_position(bit_index: u64) {
-    
+pub fn get_position(bit_index: u64) -> () {
+
+
 }
 
 
