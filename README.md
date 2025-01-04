@@ -8,6 +8,20 @@
 -->
 # RLChessEngine
 <p align="center">
-    <img src="./RLChessEngine.png" alt="RLChessEngineLogo" width="500" height="500" style="display: block; margin: 0 auto" />
+    <img src="./RLChessEngineLogo.png" alt="RLChessEngineLogo" width="500" height="250" style="display: block; margin: 0 auto" />
 </p>
-[![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url] [![GPL-3.0 License][license-shield]][license-url]
+![Static Badge](https://img.shields.io/badge/version-1.0.0-orange)
+
+
+
+
+## Description
+A bitboard Chess Engine built in rust with the goal of training a Chess Bot using Reinforcment Learning.
+
+## Roadmap / Goals
+- [x] Bitboard  Board Representation
+- [ ] Move Generation
+- [ ] Check, Checkmate, Stalemate logic
+- [ ] UCI Protocol Implementation (might just use a crate)
+- [ ] Train AI on Engine
+- [ ] Documentation
